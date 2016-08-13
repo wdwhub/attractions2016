@@ -60,7 +60,15 @@ group :staging, :production do
   gem "rails_stdout_logging"
 end
 
+# UI
 gem 'high_voltage'
 gem 'bourbon', '5.0.0.beta.6'
 gem 'neat', '~> 1.8.0'
 gem 'refills', group: [:development, :test]
+
+#consume json api
+gem 'faraday', '~> 0.9.2' 
+gem 'faraday_middleware', '~> 0.10.0'
+gem 'mechanize', '~> 2.7', '>= 2.7.4'
+gem 'foursquare2', '~> 2.0', '>= 2.0.2'
+
