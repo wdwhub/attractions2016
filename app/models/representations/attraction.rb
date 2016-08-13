@@ -1,0 +1,3 @@
+class Attraction < Representation
+  
+end
