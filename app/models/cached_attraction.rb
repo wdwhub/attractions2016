@@ -1,0 +1,2 @@
+class CachedAttraction < ApplicationRecord
+end
