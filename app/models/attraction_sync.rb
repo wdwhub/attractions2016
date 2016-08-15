@@ -24,7 +24,7 @@ class AttractionSync
       permalink: tvc.permalink
       ).first_or_create
     
-      # cached_attraction.update(tvc.attributes)
+      cached_attraction.update(tvc.attributes)
       
       puts "==== #{cached_attraction.permalink} ==="
       puts cached_attraction.attributes

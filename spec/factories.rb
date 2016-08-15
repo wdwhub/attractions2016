@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :cached_attraction do
-    name "MyString"
-    permalink "MyString"
+    sequence(:name) { |n| "venue name#{n}"}
+    sequence(:permalink) { |n| "venue-permalink#{n}"}
     fastpass_booth false
     short_name "MyString"
     open_emh_morning false

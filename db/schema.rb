@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814160113) do
+ActiveRecord::Schema.define(version: 20160815010948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,8 +114,10 @@ ActiveRecord::Schema.define(version: 20160814160113) do
     t.boolean  "allow_menu_url_edit"
     t.string   "specials"
     t.text     "wdw_uri"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "cached_attraction_id"
+    t.index ["cached_attraction_id"], name: "index_foursquare_cached_venues_on_cached_attraction_id", using: :btree
   end
 
   create_table "touringplans_cached_venues", force: :cascade do |t|
@@ -180,4 +182,5 @@ ActiveRecord::Schema.define(version: 20160814160113) do
     t.string   "permalink"
   end
 
+  add_foreign_key "foursquare_cached_venues", "cached_attractions"
 end

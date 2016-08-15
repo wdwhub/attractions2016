@@ -115,7 +115,7 @@ class FoursquareMissingVenue
     ""
   end
   
-  def venue_id
+  def foursquare_venue_id
     ""
   end
 end
