@@ -14,6 +14,9 @@ class TouringplansSync
     "I am touring plans park sync"
   end
   
+  def update_all_cached_touringplans_venues
+    client.routes.keys.each { |route| update_park_venues(park_route_key: route) }
+  end
   def update_park_venues(park_route_key:)
     list = list_park_venues(route: park_route_key)
     # list.collect { |venue| venue.name }
@@ -52,7 +55,7 @@ class TouringplansSync
       .attractions
       .first
       
-    remote_touringplans_venue.permalink = representation.permalink
+    remote_touringplans_venue.permalink = representation.permalink # remote tp doesn't have a permalink
     tp_cached_venue  = TouringplansCachedVenue.where(
       permalink: remote_touringplans_venue.permalink
       ).first_or_create
