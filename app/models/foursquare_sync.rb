@@ -15,6 +15,10 @@ class FoursquareSync
     }
   end
 
+  def collect_all_foursquare_venue_ids
+    FoursquareCachedVenue.all.collect { |venue| venue.foursquare_venue_id }
+  end
+
   def update_all_foursquare_cached_venues
     list = collect_all_cached_attraction_venue_names_and_ids
     list.each { |venue| create_or_update_cached_venue(cached_attraction_name: "#{venue[:cached_attraction_name]}", cached_attraction_id: venue[:cached_attraction_id])}
@@ -50,14 +54,30 @@ class FoursquareSync
 
      )
      puts "==== sync #{remote_venue.id  } ==="
-    # #  # puts "Eatery #{cached_venue.name}, address #{cached_venue.address}, lat #{cached_venue.lat}, lng #{cached_venue.lng}, wdw_uri #{cached_venue.wdw_uri}, verified #{cached_venue.verified}, dislike #{cached_venue.dislike}, ok #{cached_venue.ok}, rating #{cached_venue.rating}, rating_signals #{cached_venue.rating_signals}, specials #{cached_venue.specials}, wdw_uri #{cached_venue.wdw_uri}"
-    #  puts "sync +++++++++++++"
-    #  puts "remote_venue #{remote_venue.name}, address #{remote_venue.location.first.address}, lat #{remote_venue.location.first.lat}, lat #{remote_venue.location.first.lat}, lng #{remote_venue.location.first.lng}, wdw_uri #{remote_venue.wdw_uri}, verified #{remote_venue.verified}, dislike #{remote_venue.dislike}, ok #{remote_venue.ok}, rating #{remote_venue.rating}, rating_signals #{remote_venue.rating_signals}, specials #{remote_venue.specials}, wdw_uri #{remote_venue.url}"
-    #  puts "++++++++++++++"
-    # #  puts "remote_venue #{remote_venue}"
-    #  puts "======================="
-    # #
+
+     puts "======================="
+
   end
+  
+  def create_or_update_cached_photos(venue_id:)
+    fsq_photos = FoursquarePhoto.new.venue_photos(venue_id)
+    fsq_photos.photos.each do |image|
+      puts "venue_id: #{venue_id}, cached_photo #{image.id}"
+      cached_photo             = CachedPhoto.where(foursquare_photo_id: image.id).first_or_create
+      
+      cached_photo.update(height:      image.height         || venue_default.height,
+      created_at_by_epoch:      image.createdAt             || venue_default.created_at_by_epoch,
+      width:                    image.width                 || venue_default.width,
+      foursquare_venue_id:      venue_id                    || venue_default.venue_id,
+      prefix:                   image.prefix                || venue_default.prefix,
+      suffix:                   image.suffix                || venue_default.suffix,
+      fousquare_user:           image.fousquare_user.to_s   || venue_default.fousquare_user,
+      visibility:               image.visibility            || venue_default.visibility
+      )
+    end
+    
+  end
+  
   
   def foursquare_venue_representation(venue_id)
     FoursquareVenue.new.venue(venue_id)
@@ -72,6 +92,11 @@ class FoursquareSync
       found_remote_venue    = foursquare_venue_representation(found_remote_venue["id"])
     end
     result = found_remote_venue
+  end
+  
+  def update_photos_for_all_venues
+    list = collect_all_foursquare_venue_ids
+    list.each { |venue_id| create_or_update_cached_photos(venue_id: venue_id.to_s)}
   end
   
 end

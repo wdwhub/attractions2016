@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815010948) do
+ActiveRecord::Schema.define(version: 20160816022022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,20 @@ ActiveRecord::Schema.define(version: 20160815010948) do
     t.boolean  "closes_at_sunset"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "cached_photos", force: :cascade do |t|
+    t.integer  "height"
+    t.integer  "created_at_by_epoch"
+    t.integer  "width"
+    t.string   "foursquare_venue_id"
+    t.string   "prefix"
+    t.string   "suffix"
+    t.string   "fousquare_user"
+    t.string   "visibility"
+    t.string   "foursquare_photo_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

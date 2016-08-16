@@ -1,4 +1,17 @@
 FactoryGirl.define do
+  factory :cached_photo do
+    height 144
+    created_at_by_epoch 1432308844
+    width 1
+    foursquare_venue_id "MyString"
+    prefix "https://irs2.4sqi.net/img/general/"
+    suffix "/218532_d-sTFfsLRzL2HrxkB40qw0sL2GXaJRWK2cbXPMbOhHE.jpg"
+    sequence(:suffix) { |n| "/218532_d-sTFfsLRzL2HrxkB40qw0sL2GXaJRWK2cbXPMbOhHE#{n}.jpg"}
+    
+    fousquare_user "MyString"
+    visibility "MyString"
+    foursquare_photo_id "MyString"
+  end
   factory :cached_attraction do
     sequence(:name) { |n| "venue name#{n}"}
     sequence(:permalink) { |n| "venue-permalink#{n}"}
@@ -59,8 +72,9 @@ FactoryGirl.define do
     closes_at_sunset false
   end
   factory :foursquare_cached_venue do
-    name "MyString"
-    foursquare_venue_id "MyString"
+    sequence(:name) { |n| "venue name#{n}"}
+    foursquare_venue_id "578d25d0498e908e62c12501"
+    sequence(:foursquare_venue_id) { |n| "578d25d0498e908e62c125#{n}"}
     address "MyString"
     cross_street "MyString"
     lat "MyString"
