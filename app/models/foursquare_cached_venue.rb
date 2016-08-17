@@ -6,6 +6,6 @@ class FoursquareCachedVenue < ApplicationRecord
   end
   
   def find_cached_tips
-    cached_tips = CachedTip.where("foursquare_venue_id = ?", foursquare_id)
+    cached_tips = CachedTip.where("foursquare_venue_id = ?", foursquare_venue_id)
   end
 end

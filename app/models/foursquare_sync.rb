@@ -27,7 +27,7 @@ class FoursquareSync
   end
   
   def create_or_update_cached_venue(cached_attraction_name: , cached_attraction_id:)
-    puts     "cached_attraction_name: #{cached_attraction_name}, cached_attraction_id: #{cached_attraction_id}"
+    # puts     "cached_attraction_name: #{cached_attraction_name}, cached_attraction_id: #{cached_attraction_id}"
     
     remote_venue    = find_remote_venue(cached_attraction_name)
     return venue_default if remote_venue.id.to_s.length <= 3
@@ -62,7 +62,7 @@ class FoursquareSync
   def create_or_update_cached_photos(venue_id:)
     fsq_photos = FoursquarePhoto.new.venue_photos(venue_id)
     fsq_photos.photos.each do |image|
-      puts "venue_id: #{venue_id}, cached_photo #{image.id}"
+      # puts "venue_id: #{venue_id}, cached_photo: #{image.id}"
       cached_photo             = CachedPhoto.where(foursquare_photo_id: image.id).first_or_create
       
       cached_photo.update(height:      image.height         || venue_default.height,
@@ -78,6 +78,33 @@ class FoursquareSync
     
   end
   
+  def create_or_update_cached_tips(venue_id:)
+    fsq_tips = FoursquareTip.new.venue_tips(venue_id)
+    fsq_tips.tips.each do |tip|
+      tip
+      # puts "===="
+      cached_tip             = CachedTip.where(foursquare_tip_id: tip.id).first_or_create
+      
+      cached_tip.update(foursquare_tip_id:  tip.id                || :venue_default.foursquare_tip_id,
+      text:                           tip.text                    || :venue_default.text,
+      kind:                           tip.type                    || :venue_default.type,
+      foursquare_venue_id:            venue_id                    || :venue_default.venue_id,
+      canonical_url:                  tip.canonical_url           || :venue_default.canonical_url,
+      foursquare_user_photo_prefix:   tip.user.first.photo_prefix || :venue_default.user_photo_prefix,
+      foursquare_user_photo_suffix:   tip.user.first.photo_suffix || :venue_default.user_photo_suffix,
+      foursquare_user_id:             tip.user.first.id           || :venue_default.foursquare_user_id,
+      foursquare_user_first_name:     tip.user.first.first_name   || :venue_default.foursquare_user_first_name,
+      foursquare_last_name:           tip.user.first.last_name    || :venue_default.foursquare_user_last_name
+      )
+      # t.string   "likes_count"
+      # t.string   "log_view"
+      # t.string   "agree_count"
+      # t.string   "foursquare_last_name"
+      # t.string   "foursquare_user_gender"
+      
+    end
+    
+  end
   
   def foursquare_venue_representation(venue_id)
     FoursquareVenue.new.venue(venue_id)
@@ -97,6 +124,11 @@ class FoursquareSync
   def update_photos_for_all_venues
     list = collect_all_foursquare_venue_ids
     list.each { |venue_id| create_or_update_cached_photos(venue_id: venue_id.to_s)}
+  end
+  
+  def update_tips_for_all_venues
+    list = collect_all_foursquare_venue_ids
+    list.each { |venue_id| create_or_update_cached_tips(venue_id: venue_id.to_s)}
   end
   
 end
