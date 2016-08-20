@@ -76,3 +76,7 @@ gem 'foursquare2', '~> 2.0', '>= 2.0.2'
 gem 'sinatra', github: 'sinatra/sinatra'
 gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'clockwork', '~> 2.0'
+
+# admin
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'activeadmin', '~> 1.0.0.pre4'

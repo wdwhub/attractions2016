@@ -62,7 +62,7 @@ class TouringplansSync
     
     tp_cached_venue.update(remote_touringplans_venue.to_h)
     puts "==== #{tp_cached_venue.permalink} ==="
-    puts tp_cached_venue.attributes
+    # puts tp_cached_venue.attributes
     puts "======================="
     
     
