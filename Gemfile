@@ -72,5 +72,7 @@ gem 'faraday_middleware', '~> 0.10.0'
 gem 'mechanize', '~> 2.7', '>= 2.7.4'
 gem 'foursquare2', '~> 2.0', '>= 2.0.2'
 
-# set cron jobs
-gem 'whenever', '~> 0.9.7'
+# background jobs
+gem 'sinatra', github: 'sinatra/sinatra'
+gem 'sidekiq', github: 'mperham/sidekiq'
+gem 'clockwork', '~> 2.0'
