@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820140126) do
+ActiveRecord::Schema.define(version: 20161022195006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,6 +238,11 @@ ActiveRecord::Schema.define(version: 20160820140126) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "permalink"
+    t.boolean  "allow_time_restriction"
+    t.boolean  "relative_open_to_sunset"
+    t.boolean  "relative_close_to_sunset"
+    t.integer  "closing_round_code"
+    t.integer  "walking_time_proxy_id"
   end
 
   add_foreign_key "foursquare_cached_venues", "cached_attractions"
