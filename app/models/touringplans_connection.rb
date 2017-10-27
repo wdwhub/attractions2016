@@ -28,7 +28,7 @@ class TouringplansConnection
     "i am touring plans"
   end
   
-  def query(params={})
+  def query(params:{})
     @query.update(params)
   end
   

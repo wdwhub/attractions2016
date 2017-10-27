@@ -72,6 +72,8 @@ gem 'faraday', '~> 0.9.2'
 gem 'faraday_middleware', '~> 0.10.0'
 gem 'mechanize', '~> 2.7', '>= 2.7.4'
 gem 'foursquare2', '~> 2.0', '>= 2.0.2'
+gem 'representable', '~> 3.0', '>= 3.0.4'
+gem 'multi_json', '~> 1.12', '>= 1.12.2'
 
 # background jobs
 gem 'sinatra', github: 'sinatra/sinatra'

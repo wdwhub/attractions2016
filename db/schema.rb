@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022195006) do
+ActiveRecord::Schema.define(version: 20171027013443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,11 @@ ActiveRecord::Schema.define(version: 20161022195006) do
     t.boolean  "relative_close_to_sunset"
     t.integer  "closing_round_code"
     t.integer  "walking_time_proxy_id"
+    t.boolean  "flexible_duration"
+    t.integer  "operator_id"
+    t.string   "operator_type"
+    t.integer  "showtime_proxy_id"
+    t.boolean  "hide_app"
   end
 
   add_foreign_key "foursquare_cached_venues", "cached_attractions"
