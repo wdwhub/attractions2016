@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027013443) do
+ActiveRecord::Schema.define(version: 20171027030737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,16 @@ ActiveRecord::Schema.define(version: 20171027013443) do
     t.boolean  "closes_at_sunset"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.boolean  "allow_time_restriction"
+    t.boolean  "relative_open_to_sunset"
+    t.boolean  "relative_close_to_sunset"
+    t.integer  "closing_round_code"
+    t.integer  "walking_time_proxy_id"
+    t.boolean  "flexible_duration"
+    t.integer  "operator_id"
+    t.string   "operator_type"
+    t.integer  "showtime_proxy_id"
+    t.boolean  "hide_app"
   end
 
   create_table "cached_photos", force: :cascade do |t|

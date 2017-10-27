@@ -54,7 +54,7 @@ class TouringplansSync
   def update_cached_touring_plans_venue_from_touringplans_com(representation:)
     puts "starting #{representation.permalink}"
     return venue_default if representation.permalink.to_s.length == 0
-# User.find_or_create_by(first_name: 'Penélope')    
+
     tp_cached_venue  = TouringplansCachedVenue.find_or_create_by(permalink: representation.permalink)
     tp_cached_venue.update({name: representation.name,
       fastpass_booth: representation.fastpass_booth,
